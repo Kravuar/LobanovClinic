@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5433/postgres
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        default_schema: clinic
+
+app:
+  jwt:
+    access_cookie_name: access_token
+    refresh_cookie_name: refresh_token
+    access_token_expiration: 300
+    refresh_token_expiration: 86400
+  security:
+    unauthenticatedServlets:
+      - '/auth'
+      - '/shop'
