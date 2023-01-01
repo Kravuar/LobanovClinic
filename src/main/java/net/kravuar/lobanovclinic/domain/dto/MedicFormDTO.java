@@ -17,5 +17,5 @@ public class MedicFormDTO {
     @Size(min = 5, message = "Пароль должно содержать хотя бы 5 символов.")
     private final String password;
 
-    private final Set<@Size(min = 3, message = "Название должности должно быть от 5 до 30 символов.") String> positions;
+    private final Set<MedicPositionDTO> positions;
 }

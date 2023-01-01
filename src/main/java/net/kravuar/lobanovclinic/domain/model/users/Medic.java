@@ -5,8 +5,11 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import net.kravuar.lobanovclinic.domain.model.clinic.MedicPosition;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -28,6 +31,12 @@ public class Medic {
     @Column(nullable = false)
     @Size(max = 70, message = "Хэш пароля не должен быть больше 70 символов.")
     private String password;
+
+    @OneToMany(mappedBy = "medic",orphanRemoval = true, fetch = FetchType.LAZY)
+    private Set<MedicPosition> positions = new HashSet<>();
+
+    @OneToMany(mappedBy = "medic", fetch = FetchType.LAZY)
+    private Set<Patient> patients = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {

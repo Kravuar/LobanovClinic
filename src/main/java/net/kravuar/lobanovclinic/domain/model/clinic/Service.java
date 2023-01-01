@@ -2,13 +2,13 @@ package net.kravuar.lobanovclinic.domain.model.clinic;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Table(name = "services")
 public class Service {
     @Id
