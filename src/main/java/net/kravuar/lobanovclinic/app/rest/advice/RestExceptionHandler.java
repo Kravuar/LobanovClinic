@@ -1,4 +1,4 @@
-package net.kravuar.lobanovclinic.app.services.advice;
+package net.kravuar.lobanovclinic.app.rest.advice;
 
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import jakarta.persistence.EntityExistsException;
