@@ -1,5 +1,6 @@
 package net.kravuar.lobanovclinic.domain.dto;
 
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
@@ -7,7 +8,8 @@ import java.util.Set;
 
 @Data
 public class MedicFormDTO {
-    private final Long humanId;
+    @Min(value = 0, message = "Номер паспорта не может быть отрицательным.")
+    private final Long passport;
 
     @Size(min = 5, max = 20, message = "Имя пользователя должно быть от 5 до 20 символов.")
     private final String username;

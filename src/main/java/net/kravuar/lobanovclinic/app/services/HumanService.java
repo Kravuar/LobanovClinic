@@ -32,15 +32,15 @@ public class HumanService implements UserDetailsService {
         return medicRepo.findByUsername(username)
                 .orElseThrow(() -> new EntityNotFoundException("Врач с именем пользователя " + username + " не найден."));
     }
-    public Medic findMedicByHumanId(Long id) {
-        return medicRepo.findByHumanId(id)
-                .orElseThrow(() -> new EntityNotFoundException("Врач с номером человека " + id + " не найден."));
+    public Medic findMedicByHumanPassport(Long passport) {
+        return medicRepo.findByHumanPassport(passport)
+                .orElseThrow(() -> new EntityNotFoundException("Врач с номером паспорта " + passport + " не найден."));
     }
 
     private void saveMedicTo(MedicFormDTO medicFormDTO, Medic medic) {
         medic.setUsername(medicFormDTO.getUsername());
         medic.setPassword(encoder.encode(medicFormDTO.getPassword()));
-        medic.setHuman(humanRepo.findById(medicFormDTO.getHumanId()).orElseThrow(() -> new EntityNotFoundException("Человек с номером " + medicFormDTO.getHumanId() + " не найден.")));
+        medic.setHuman(humanRepo.findByPassport(medicFormDTO.getPassport()).orElseThrow(() -> new EntityNotFoundException("Человек с номером паспорта " + medicFormDTO.getPassport() + " не найден.")));
 //        medicPositions.setPosition(positionRepo.findByName(medicFormDTO.getPosition()).orElseThrow(EntityNotFoundException::new));
 
         medicRepo.save(medic);
@@ -59,6 +59,12 @@ public class HumanService implements UserDetailsService {
             throw new EntityExistsException("Врач с именем пользователя " + medicFormDTO.getUsername() + " уже существует.");
 
         saveMedicTo(medicFormDTO, new Medic());
+    }
+    public void deleteHumanByPassport(Long passport) {
+        humanRepo.deleteById(passport);
+    }
+    public void deleteMedicByPassport(Long passport) {
+        medicRepo.deleteById(passport);
     }
 
     @Override

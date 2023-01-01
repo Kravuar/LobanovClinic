@@ -1,6 +1,7 @@
 package net.kravuar.lobanovclinic.domain.model.users;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,10 +14,11 @@ import java.util.Objects;
 @Table(name = "medics")
 public class Medic {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Min(value = 0, message = "Номер паспорта не может быть отрицательным.")
+    private Long passport;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
+    @MapsId
     private Human human;
 
     @Column(unique = true)

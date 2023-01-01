@@ -22,10 +22,6 @@ public class Position implements GrantedAuthority {
     private String name;
 
     @Column(nullable = false)
-    @Min(value = 0, message = "Ранг должности не может быть отрицательным.")
-    private int rank;
-
-    @Column(nullable = false)
     @Min(value = 0, message = "Зарплата не может быть отрицательной.")
     private float salary;
 

@@ -1,6 +1,8 @@
 package net.kravuar.lobanovclinic.domain.model.users;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,8 +16,8 @@ import java.util.Objects;
 @Table(name = "humans")
 public class Human {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Min(value = 0, message = "Номер паспорта не может быть отрицательным.")
+    private Long passport;
 
     @Column(unique = true, nullable = false)
     @Size(min = 5, max = 40, message = "ФИО должно быть от 5 до 40 символов.")

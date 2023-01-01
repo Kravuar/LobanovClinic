@@ -9,6 +9,6 @@ import java.util.Optional;
 @Repository
 public interface MedicRepo extends JpaRepository<Medic, Long> {
     Optional<Medic> findByUsername(String username);
-    Optional<Medic> findByHumanId(Long id);
+    Optional<Medic> findByHumanPassport(Long id);
     boolean existsByUsername(String username);
 }
