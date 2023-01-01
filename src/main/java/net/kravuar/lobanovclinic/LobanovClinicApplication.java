@@ -1,7 +1,6 @@
 package net.kravuar.lobanovclinic;
 
 import net.kravuar.lobanovclinic.app.props.AppProps;
-import net.kravuar.lobanovclinic.app.services.HumanService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;

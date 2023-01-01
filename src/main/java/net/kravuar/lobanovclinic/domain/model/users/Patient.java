@@ -2,7 +2,6 @@ package net.kravuar.lobanovclinic.domain.model.users;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import net.kravuar.lobanovclinic.domain.model.clinic.Department;
@@ -23,7 +22,7 @@ public class Patient {
     private Human human;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Human medic;
+    private Medic medic;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Department department;

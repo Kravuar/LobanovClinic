@@ -2,7 +2,7 @@ package net.kravuar.lobanovclinic;
 
 import com.auth0.jwt.algorithms.Algorithm;
 import lombok.RequiredArgsConstructor;
-import net.kravuar.lobanovclinic.app.services.HumanService;
+import net.kravuar.lobanovclinic.app.services.MedicService;
 import net.kravuar.lobanovclinic.domain.services.Auth.AuthFilter;
 import net.kravuar.lobanovclinic.domain.services.Auth.OnceAuthFilter;
 import org.springframework.context.annotation.Bean;
@@ -41,7 +41,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationManager authManager(HttpSecurity httpSecurity, HumanService service, PasswordEncoder encoder) throws Exception {
+    public AuthenticationManager authManager(HttpSecurity httpSecurity, MedicService service, PasswordEncoder encoder) throws Exception {
         return httpSecurity.getSharedObject(AuthenticationManagerBuilder.class)
                 .userDetailsService(service)
                 .passwordEncoder(encoder)
