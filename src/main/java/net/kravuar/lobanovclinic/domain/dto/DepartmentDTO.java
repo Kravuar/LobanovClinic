@@ -1,20 +1,21 @@
 package net.kravuar.lobanovclinic.domain.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import net.kravuar.lobanovclinic.domain.model.clinic.Department;
-
-import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 public class DepartmentDTO {
-    private long departmentId;
+    private long id;
     private String name;
 
     public DepartmentDTO(Department department) {
-        this.departmentId = department.getId();
+        this.id = department.getId();
         this.name = department.getName();
     }
 }

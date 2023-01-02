@@ -6,10 +6,10 @@ import net.kravuar.lobanovclinic.app.services.DepartmentService;
 import net.kravuar.lobanovclinic.app.services.MedicService;
 import net.kravuar.lobanovclinic.app.services.PatientService;
 import net.kravuar.lobanovclinic.app.services.ServiceService;
-import net.kravuar.lobanovclinic.domain.dto.PatientDTO;
+import net.kravuar.lobanovclinic.domain.dto.MedicDTO;
+import net.kravuar.lobanovclinic.domain.dto.MedicFullDTO;
 import net.kravuar.lobanovclinic.domain.dto.PatientFormDTO;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,8 +26,24 @@ public class Medics {
     private final MedicService medicService;
     private final DepartmentService departmentService;
 
+    @GetMapping
+    public ResponseEntity<List<MedicFullDTO>> allMedics() {
+        return ResponseEntity.ok(medicService.findAll()
+                .stream().map(MedicFullDTO::new)
+                .toList());
+    }
+
+    @GetMapping("/{passport}")
+    public ResponseEntity<MedicFullDTO> byPassport(@Min(0) @PathVariable Long passport) {
+        return ResponseEntity.ok(new MedicFullDTO(medicService.findMedicByPassport(passport)));
+    }
+
     @GetMapping("/ofDepartment/{departmentId}")
-    public ResponseEntity<List<>>
+    public ResponseEntity<List<MedicDTO>> medicsOfDepartment(@Min(0) @PathVariable Long departmentId) {
+        return ResponseEntity.ok(medicService.findByDepartment(departmentId)
+                .stream().map(MedicDTO::new)
+                .toList());
+    }
 
     @PostMapping("/hospitalize")
     public void hospitalize(PatientFormDTO patientFormDTO) {

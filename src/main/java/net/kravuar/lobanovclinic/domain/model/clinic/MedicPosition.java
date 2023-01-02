@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import net.kravuar.lobanovclinic.domain.model.clinic.util.MedicPositionKey;
-import net.kravuar.lobanovclinic.domain.model.users.Human;
+import net.kravuar.lobanovclinic.domain.model.users.Medic;
 
 import java.util.Objects;
 
@@ -20,7 +20,7 @@ public class MedicPosition {
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @MapsId("medic_passport")
-    private Human medic;
+    private Medic medic;
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @MapsId("department")
     private Department department;
@@ -28,7 +28,7 @@ public class MedicPosition {
     @MapsId("position")
     private Position position;
 
-    public MedicPosition(Human medic, Department department, Position position) {
+    public MedicPosition(Medic medic, Department department, Position position) {
         this.key = new MedicPositionKey(medic.getPassport(), position.getId(), department.getId());
         this.medic = medic;
         this.department = department;

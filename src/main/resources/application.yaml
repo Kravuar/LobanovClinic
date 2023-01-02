@@ -22,5 +22,6 @@ app:
     refresh_token_expiration: 86400
   security:
     unauthenticatedServlets:
-      - '/auth'
-      - '/shop'
+      - '/medics'
+      - '/patients'
+      - '/services'

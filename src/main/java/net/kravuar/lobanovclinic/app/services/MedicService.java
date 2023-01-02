@@ -28,6 +28,12 @@ public class MedicService implements UserDetailsService {
     private final DepartmentService departmentService;
 
     public List<Medic> findAll() { return medicRepo.findAll(); }
+    public List<Medic> findByDepartment(Long departmentId) { return departmentService
+            .findById(departmentId)
+            .getPositions().stream()
+            .map(MedicPosition::getMedic)
+            .toList();
+    }
     public Medic findMedicByUsername(String username) {
         return medicRepo.findByUsername(username)
                 .orElseThrow(() -> new EntityNotFoundException("Врач с именем пользователя " + username + " не найден."));
@@ -46,7 +52,7 @@ public class MedicService implements UserDetailsService {
                         .getPositions().stream()
                         .map(position ->
                                 new MedicPosition(
-                                        humanService.findHumanByPassport(medicFormDTO.getPassport()),
+                                        findMedicByPassport(medicFormDTO.getPassport()),
                                         departmentService.findById(position.getDepartmentId()),
                                         positionService.findById(position.getPositionId())
                                 )

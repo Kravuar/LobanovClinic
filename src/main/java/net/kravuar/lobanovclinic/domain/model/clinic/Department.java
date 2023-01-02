@@ -24,4 +24,7 @@ public class Department {
 
     @OneToMany(mappedBy = "department", orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<Patient> patients = new HashSet<>();
+
+    @OneToMany(mappedBy = "department", orphanRemoval = true, fetch = FetchType.LAZY)
+    private Set<MedicPosition> positions = new HashSet<>();
 }

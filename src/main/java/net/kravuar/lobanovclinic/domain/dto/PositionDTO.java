@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import net.kravuar.lobanovclinic.domain.model.clinic.Department;
 import net.kravuar.lobanovclinic.domain.model.clinic.Position;
 
 @AllArgsConstructor
@@ -12,9 +11,11 @@ import net.kravuar.lobanovclinic.domain.model.clinic.Position;
 @Getter
 @Setter
 public class PositionDTO {
+    private long id;
     private String name;
 
     public PositionDTO(Position position) {
+        this.id = position.getId();
         this.name = position.getName();
     }
 }

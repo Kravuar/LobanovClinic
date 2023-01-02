@@ -1,15 +1,12 @@
 package net.kravuar.lobanovclinic.app.services;
 
-import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import net.kravuar.lobanovclinic.app.repo.PatientRepo;
 import net.kravuar.lobanovclinic.domain.dto.PatientFormDTO;
 import net.kravuar.lobanovclinic.domain.model.users.Patient;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -24,6 +21,7 @@ public class PatientService {
 
     public Patient findByPassport(Long passport) { return patientRepo.findByPassport(passport).orElseThrow(() -> new EntityNotFoundException("Пациент с номером паспорта " + passport + " не найдена.")); }
     public List<Patient> findByDepartment(Long departmentId) { return patientRepo.findAllByDepartmentId(departmentId); }
+    public List<Patient> findAll() { return patientRepo.findAll(); }
     public void save(PatientFormDTO patientFormDTO) {
         savePatientTo(patientFormDTO, new Patient());
     }
