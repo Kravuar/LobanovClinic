@@ -8,11 +8,15 @@ import net.kravuar.lobanovclinic.domain.model.users.Human;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class HumanService {
     private final HumanRepo humanRepo;
+
+    public List<Human> findAll() { return humanRepo.findAll(); }
 
     public Human findHumanByPassport(Long passport) {
         return humanRepo.findByPassport(passport)

@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import BootstrapTable from 'react-bootstrap-table-next';
 import cellEditFactory, { Type } from 'react-bootstrap-table2-editor';
+import { Link } from "react-router-dom";
 
 export default function Patients() {
     const [patients, setPatients] = useState([]);
@@ -14,18 +15,13 @@ export default function Patients() {
 
     return (
         <div className=" container-fluid mt-3 shadow py-3 border border-dark">
-            <button className="btn btn-success mb-3">Добавить пациента</button>
+            <Link to="addPatient" className="btn btn-success mb-3">Добавить пациента</Link>
             <BootstrapTable 
                 keyField='patientPassport' 
                 cellEdit={ cellEditFactory({ 
                     mode: 'click',
                     afterSaveCell: (_0,_1, row) => {
-                        axios.post(process.env.REACT_APP_API_URL + "/patients/update", {
-                            patientPassport: row.patientPassport,
-                            medicPassport: row.medicPassport,
-                            departmentId: row.departmentId,
-                            ward: row.ward
-                        });
+                        // do certain action depending on column.
                     }
                 }) }
                 data={ patients.map(patient => ({
@@ -37,6 +33,7 @@ export default function Patients() {
                     patientDateOfBirth: patient.patient.dateOfBirth,
                     medicPassport: patient.medic.passport,
                     medicFullName: patient.medic.fullName,
+                    edit: <Link to={`assignService/${patient.patient.passport}`} className="btn btn-warning">Назначить услугу</Link>,
                     delete: <button className="btn btn-danger">X</button>,
                 })) } 
                 columns={[
@@ -106,6 +103,11 @@ export default function Patients() {
                     {
                         dataField: 'medicFullName',
                         text: 'ФИО врача',
+                        editable: () => false
+                    },
+                    {
+                        dataField: 'edit',
+                        text: '',
                         editable: () => false
                     },
                     {

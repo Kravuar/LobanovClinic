@@ -25,3 +25,5 @@ app:
       - '/medics'
       - '/patients'
       - '/services'
+      - '/humans'
+      - '/positions'

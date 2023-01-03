@@ -6,9 +6,7 @@ import net.kravuar.lobanovclinic.app.services.DepartmentService;
 import net.kravuar.lobanovclinic.app.services.MedicService;
 import net.kravuar.lobanovclinic.app.services.PatientService;
 import net.kravuar.lobanovclinic.app.services.ServiceService;
-import net.kravuar.lobanovclinic.domain.dto.MedicDTO;
-import net.kravuar.lobanovclinic.domain.dto.MedicFullDTO;
-import net.kravuar.lobanovclinic.domain.dto.PatientFormDTO;
+import net.kravuar.lobanovclinic.domain.dto.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -50,9 +48,14 @@ public class Medics {
         patientService.save(patientFormDTO);
     }
 
-    @DeleteMapping("/discharge/{patientPassport}")
-    public void discharge(@Min(0) @PathVariable Long patientPassport) {
-        patientService.deleteByPassport(patientPassport);
+    @PostMapping("/positions/{passport}")
+    public void addPosition(@Min(0) @PathVariable Long passport, @RequestBody MedicPositionFormDTO positionFormDTO) {
+        medicService.addPosition(passport, positionFormDTO);
+    }
+
+    @DeleteMapping("/positions/{passport}")
+    public void removePosition(@Min(0) @PathVariable Long passport, @RequestBody MedicPositionFormDTO positionFormDTO) {
+        medicService.removePosition(passport, positionFormDTO);
     }
 
     @PutMapping("/scheduleService/{patientPassport}/{medicPassport}/{serviceId}")
@@ -73,7 +76,6 @@ public class Medics {
         patient.setDepartment(departmentService.findById(departmentId));
         patientService.save(patient);
     }
-
     @PutMapping("/movePatientWardwise/{patientPassport}/{ward}")
     public void moveWardwise(@Min(0) @PathVariable Long patientPassport, @Min(0) @PathVariable Integer ward) {
         var patient = patientService.findByPassport(patientPassport);

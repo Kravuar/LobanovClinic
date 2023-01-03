@@ -12,8 +12,10 @@ import net.kravuar.lobanovclinic.domain.model.users.Medic;
 @Setter
 public class MedicDTO {
     private HumanDTO medic;
+    private String phoneNumber;
 
     public MedicDTO(Medic medic) {
         this.medic = new HumanDTO(medic.getHuman());
+        this.phoneNumber = medic.getPhoneNumber();
     }
 }

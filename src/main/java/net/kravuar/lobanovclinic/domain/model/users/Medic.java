@@ -28,6 +28,10 @@ public class Medic {
     @Size(min = 5, max = 20 , message = "Имя пользователя должно быть от 5 до 20 символов.")
     private String username;
 
+    @Column(unique = true)
+    @Size(min = 5, max = 15 , message = "Номер телефона должен быть от 5 до 20 символов.")
+    private String phoneNumber;
+
     @Column(nullable = false)
     @Size(max = 70, message = "Хэш пароля не должен быть больше 70 символов.")
     private String password;

@@ -3,9 +3,12 @@ package net.kravuar.lobanovclinic.app.services;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import net.kravuar.lobanovclinic.app.repo.MedicPositionsRepo;
 import net.kravuar.lobanovclinic.app.repo.MedicRepo;
 import net.kravuar.lobanovclinic.domain.dto.MedicFormDTO;
+import net.kravuar.lobanovclinic.domain.dto.MedicPositionFormDTO;
 import net.kravuar.lobanovclinic.domain.model.clinic.MedicPosition;
+import net.kravuar.lobanovclinic.domain.model.clinic.util.MedicPositionKey;
 import net.kravuar.lobanovclinic.domain.model.users.Medic;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -23,6 +26,7 @@ import java.util.stream.Collectors;
 public class MedicService implements UserDetailsService {
     private final HumanService humanService;
     private final MedicRepo medicRepo;
+    private final MedicPositionsRepo medicPositionsRepo;
     private final PasswordEncoder encoder;
     private final PositionService positionService;
     private final DepartmentService departmentService;
@@ -71,6 +75,22 @@ public class MedicService implements UserDetailsService {
     }
     public void deleteMedicByPassport(Long passport) {
         medicRepo.deleteById(passport);
+    }
+    public void addPosition(Long passport, MedicPositionFormDTO positionFormDTO) {
+        medicPositionsRepo.save(new MedicPosition(
+                    findMedicByPassport(passport),
+                    departmentService.findById(positionFormDTO.getDepartmentId()),
+                    positionService.findById(positionFormDTO.getPositionId())
+                )
+        );
+    }
+    public void removePosition(Long passport, MedicPositionFormDTO positionFormDTO) {
+        medicPositionsRepo.deleteByKey(new MedicPositionKey(
+                    passport,
+                    positionFormDTO.getPositionId(),
+                    positionFormDTO.getDepartmentId()
+                )
+        );
     }
 
     @Override

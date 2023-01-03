@@ -13,6 +13,8 @@ import net.kravuar.lobanovclinic.domain.model.clinic.ServiceFull;
 @Getter
 @Setter
 public class ServiceDTO {
+    @Min(value = 0, message = "Номер услуги не может быть отрицательным.")
+    private Long id;
     @Size(min = 5, max = 30, message = "Название услуги должно быть от 5 до 30 символов.")
     private String name;
 
@@ -23,6 +25,7 @@ public class ServiceDTO {
     private float price;
 
     public ServiceDTO(ServiceFull serviceFull) {
+        this.id = serviceFull.getService_id();
         this.name = serviceFull.getName();
         this.description = serviceFull.getDescription();
         this.price = serviceFull.getPrice();
